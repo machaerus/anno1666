@@ -209,7 +209,7 @@ public void mouseClicked() {
 
 class Agent extends GameObject {
 
-	boolean active;
+	private boolean active;		// whatever
 	
 	Agent(int size, Point position) {
 		super(size, position, false);
@@ -272,11 +272,11 @@ class Agent extends GameObject {
 
 abstract class GameObject {
 
-	int size;			// ilo\u015b\u0107 zajmowanych p\u00f3l
-	Point[] area;		// lista wzgl\u0119dnych wsp\u00f3\u0142rz\u0119dnych p\u00f3l zajmowanych przez obiekt
-	Point[] occupies;	// lista p\u00f3l, kt\u00f3re OBECNIE zajmuje obiekt [generowana na bie\u017c\u0105co]
-	Point position;		// pole od kt\u00f3rego liczymy wzgl\u0119dne odleg\u0142o\u015bci i kt\u00f3re pozycjonujemy
-	boolean crossable;	// czy agent mo\u017ce przej\u015b\u0107 przez ten obiekt
+	protected int size;			// ilo\u015b\u0107 zajmowanych p\u00f3l
+	protected Point[] area;		// lista wzgl\u0119dnych wsp\u00f3\u0142rz\u0119dnych p\u00f3l zajmowanych przez obiekt
+	protected Point[] occupies;	// lista p\u00f3l, kt\u00f3re OBECNIE zajmuje obiekt [generowana na bie\u017c\u0105co]
+	protected Point position;		// pole od kt\u00f3rego liczymy wzgl\u0119dne odleg\u0142o\u015bci i kt\u00f3re pozycjonujemy
+	protected boolean crossable;	// czy agent mo\u017ce przej\u015b\u0107 przez ten obiekt
 
 	GameObject(int size, Point position, boolean crossable) {
 		this.size = size;
@@ -289,8 +289,9 @@ abstract class GameObject {
 		this.crossable = crossable;
 	}
 
-	public abstract void display();			// wy\u015bwietlanie obiektu
+	public abstract void display();	// wy\u015bwietlanie obiektu
 	
+	// 
 	public void updateOccupies() {
 		for(int i = 0; i < size; i++) {
 			occupies[i].setLocation(
@@ -320,6 +321,7 @@ class Scene {
 		tileTable = new Tile[width][height];
 		Random rand = new Random();
 
+		// jakie\u015b losowe generowanie
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				tileTable[j][i] = new Tile(
@@ -351,12 +353,12 @@ class Scene {
 
 class Tile {
 
-	private Point coords;
-	private boolean occupied;
-	private boolean active;
-	private boolean hover;
-	private int col;
-	/*  klucz warto\u015bci zmiennej col:
+	private Point coords;		// wsp\u00f3\u0142rz\u0119dne na mapie
+	private boolean occupied;	// czy jest zaj\u0119te
+	private boolean active;		// czy jest aktywne (whatever)
+	private boolean hover;		// pod\u015bwietlenie pod kursorem
+	private int col;			// po prostu kolor
+	/*  warto\u015bci zmiennej col:
 	 *	0 		- occupied
 	 * 	1 		- active
 	 * 	2		- hover
@@ -374,17 +376,20 @@ class Tile {
 	public int x() {
 		return (int)coords.getX();
 	}
+
 	public int y() {
 		return (int)coords.getY();
 	}
+
 	public Point coords() {
 		return coords;
 	}
+	
 	public int col() {
-		if ( occupied ) 	return 0;
-		else if ( active ) 	return 1;
-		else if ( hover )	return 2;
-		else 				return col;
+		if 		( occupied ) 	return 0;
+		else if ( active ) 		return 1;
+		else if ( hover )		return 2;
+		else 					return col;
 	}
 
 	public void setColor(int c) {

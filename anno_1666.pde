@@ -1,9 +1,9 @@
 import java.util.Random;
 import java.lang.Math;
 
-int UNIT = 8; // podstawowa jednostka miary (połowa wysokości pola)
+int UNIT = 8; 			// podstawowa jednostka miary (połowa wysokości pola)
 
-float CAM_X = -450;			// zmienne do obsługi kamery
+float CAM_X = -450;		// zmienne do obsługi kamery
 float CAM_Y = 0;
 float xOffset = 0.0; 
 float yOffset = 0.0;
@@ -19,14 +19,15 @@ int prevHoverY = 0;
 Random rand;
 
 int SPEED;
-int Q;
+int Q;					// spowalnianie czasu (robocze)
 
 Scene scene;
 Agent agent;
 
-boolean hasActiveObject = false;
+boolean hasActiveObject = false;	// wtf
 
 void setup() {
+
 	frameRate(20);
 	size(
 		800,
@@ -45,14 +46,16 @@ void setup() {
 	a[0] = new Point(0,0);
 	agent.setArea(a);
 	agent.updateOccupies();
+	
 }
 
-
+// główna pętla
 
 void draw() {
 
 	// obliczamy współrzędne kursora na mapie
 	calculateTileCoords();
+
 	// rysowanie tła
 	background(190);
 
@@ -71,6 +74,7 @@ void draw() {
 	// rysowanie planszy
 	drawScene();
 
+	// chodząca kulka, just for testing
 	if ( Q % SPEED == 0 ) {
 		agent.move( (int)Math.floor(rand.nextFloat()*4) );
 		Q = 1;
@@ -166,6 +170,8 @@ void keyPressed() {
 	else if( keyCode == RIGHT ) CAM_X += 20;
 	else if( keyCode == LEFT ) CAM_X -= 20;
 }
+
+// obsługa kliknięć
 
 void mouseClicked() {
 	

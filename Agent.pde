@@ -1,8 +1,12 @@
 import java.awt.Point;
 
 class Agent extends GameObject {
+/**
+ * Agent - obiekt posiadający cele, zdolny
+ * do podejmowania samodzielnych akcji.
+ */
 
-	boolean active;
+	private boolean active;		// whatever
 	
 	Agent(int size, Point position) {
 		super(size, position, false);

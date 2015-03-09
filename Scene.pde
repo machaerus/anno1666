@@ -17,6 +17,7 @@ class Scene {
 		tileTable = new Tile[width][height];
 		Random rand = new Random();
 
+		// jakieś losowe generowanie
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				tileTable[j][i] = new Tile(
